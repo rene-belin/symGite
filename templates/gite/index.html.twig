@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello GiteController!
+{% endblock %}
+
+{% block body %}
+
+	{% for gite in gites %}
+		<h2>{{ gite.nom_gite}}</h2>
+		<div>{{ gite.nom_gite}}</div>
+		<p>{{ gite.surface_habitable}}</p>
+
+
+	{% endfor %}
+	{% endblock %}

@@ -1,10 +1,9 @@
 <?php
-// HomeController.php
 
 namespace App\Controller;
 
-use App\Entity\Proprietaire;
-use App\Form\ProprietaireType;
+use App\Entity\Proprietaire; 
+use App\Form\ProprietaireType; 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,19 +18,13 @@ class HomeController extends AbstractController {
     }
 
     #[Route('/proprietaire', name: 'home_proprietaire')]
-    public function proprietaire(Request $request): Response {
-        $proprietaire = new Proprietaire();
-        $form = $this->createForm(ProprietaireType::class, $proprietaire);
+    public function proprietaire(Request $request) {
+        $proprietaire = new proprietaire();
+        $form = $this->createForm(proprietaireType::class, $proprietaire);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($proprietaire);
-            $entityManager->flush();
-
-            $this->addFlash('success', 'Le formulaire a été soumis avec succès.');
-            return $this->redirectToRoute('app_home'); // Redirection vers la page d'accueil
+            // Traitez les données du formulaire ici
         }
 
         return $this->render("home/proprietaire.html.twig", [
