@@ -20,7 +20,21 @@ class GiteRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Gite::class);
     }
+    public function add(Gite $entity, bool $flush = false): void {
+        $this->getEntityManager()->persist($entity);
 
+        if($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+    public function remove(Gite $entity, bool $flush = false): void {
+        $this->getEntityManager()->remove($entity);
+
+        if($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
 //    /**
 //     * @return Gite[] Returns an array of Gite objects
 //     */

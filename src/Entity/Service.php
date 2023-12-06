@@ -22,6 +22,9 @@ class Service
     #[ORM\Column]
     private ?bool $accesInternet = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $nomService = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +62,18 @@ class Service
     public function setAccesInternet(bool $accesInternet): static
     {
         $this->accesInternet = $accesInternet;
+
+        return $this;
+    }
+
+    public function getNomService(): ?string
+    {
+        return $this->nomService;
+    }
+
+    public function setNomService(string $nomService): static
+    {
+        $this->nomService = $nomService;
 
         return $this;
     }

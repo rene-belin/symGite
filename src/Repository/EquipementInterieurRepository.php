@@ -7,42 +7,61 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<EquipementInterieur>
- *
  * @method EquipementInterieur|null find($id, $lockMode = null, $lockVersion = null)
  * @method EquipementInterieur|null findOneBy(array $criteria, array $orderBy = null)
  * @method EquipementInterieur[]    findAll()
  * @method EquipementInterieur[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class EquipementInterieurRepository extends ServiceEntityRepository
-{
-    public function __construct(ManagerRegistry $registry)
-    {
+class EquipementInterieurRepository extends ServiceEntityRepository {
+    public function __construct(ManagerRegistry $registry) {
         parent::__construct($registry, EquipementInterieur::class);
     }
 
-//    /**
-//     * @return EquipementInterieur[] Returns an array of EquipementInterieur objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('e')
-//            ->andWhere('e.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('e.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * Ajoute une entité EquipementInterieur.
+     *
+     * @param EquipementInterieur $entity
+     * @param bool $flush
+     */
+    public function add(EquipementInterieur $entity, bool $flush = false): void {
+        $em = $this->getEntityManager();
+        $em->beginTransaction();
 
-//    public function findOneBySomeField($value): ?EquipementInterieur
-//    {
-//        return $this->createQueryBuilder('e')
-//            ->andWhere('e.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        try {
+            $em->persist($entity);
+
+            if($flush) {
+                $em->flush();
+            }
+
+            $em->commit();
+        } catch (\Exception $e) {
+            $em->rollback();
+            throw $e;
+        }
+    }
+
+    /**
+     * Supprime une entité EquipementInterieur.
+     *
+     * @param EquipementInterieur $entity
+     * @param bool $flush
+     */
+    public function remove(EquipementInterieur $entity, bool $flush = false): void {
+        $em = $this->getEntityManager();
+        $em->beginTransaction();
+
+        try {
+            $em->remove($entity);
+
+            if($flush) {
+                $em->flush();
+            }
+
+            $em->commit();
+        } catch (\Exception $e) {
+            $em->rollback();
+            throw $e;
+        }
+    }
 }

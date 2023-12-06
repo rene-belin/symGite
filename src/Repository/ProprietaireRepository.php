@@ -14,14 +14,27 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Proprietaire[]    findAll()
  * @method Proprietaire[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ProprietaireRepository extends ServiceEntityRepository
-{
-    public function __construct(ManagerRegistry $registry)
-    {
+class ProprietaireRepository extends ServiceEntityRepository {
+    public function __construct(ManagerRegistry $registry) {
         parent::__construct($registry, Proprietaire::class);
     }
 
-//    /**
+    public function add(Proprietaire $entity, bool $flush = false): void {
+        $this->getEntityManager()->persist($entity);
+
+        if($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+    public function remove(Proprietaire $entity, bool $flush = false): void {
+        $this->getEntityManager()->remove($entity);
+
+        if($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+    //    /**
 //     * @return Proprietaire[] Returns an array of Proprietaire objects
 //     */
 //    public function findByExampleField($value): array
@@ -36,7 +49,7 @@ class ProprietaireRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Proprietaire
+    //    public function findOneBySomeField($value): ?Proprietaire
 //    {
 //        return $this->createQueryBuilder('p')
 //            ->andWhere('p.exampleField = :val')
