@@ -1,0 +1,39 @@
+{# templates/home/index.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Localisation{% endblock %}
+
+{% block body %}
+    <h1>Recherche</h1>
+
+    
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button class="btn btn-primary">Recherche</button>
+    {{ form_end(form) }}
+    
+    {% if localisations is not empty %}
+        <h2>Resultat de recherche</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Region</th>
+                    <th>Departement</th>
+                    <th>Ville</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for localisation in localisations %}
+                    <tr>
+                        <td>{{ localisation.region }}</td>
+                        <td>{{ localisation.departement }}</td>
+                        <td>{{ localisation.ville }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No results found.</p>
+    {% endif %}
+{% endblock %}

@@ -10,7 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ProprietaireController extends AbstractController
 {
-    #[Route('/proprietaire/add', name: 'app_proprietaire')]
+    #[Route('/proprietaire', name: 'app_proprietaire')]
     public function index(ManagerRegistry $doctrine): Response
     {
         $entityManager = $doctrine->getManager();

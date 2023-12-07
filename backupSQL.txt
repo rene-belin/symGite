@@ -1,0 +1,399 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Hôte : 127.0.0.1
+-- Généré le : jeu. 07 déc. 2023 à 15:08
+-- Version du serveur : 10.4.28-MariaDB
+-- Version de PHP : 8.2.4
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+--
+-- Base de données : `appgite`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `doctrine_migration_versions`
+--
+
+CREATE TABLE `doctrine_migration_versions` (
+  `version` varchar(191) NOT NULL,
+  `executed_at` datetime DEFAULT NULL,
+  `execution_time` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `equipement_exterieur`
+--
+
+CREATE TABLE `equipement_exterieur` (
+  `id` int(11) NOT NULL,
+  `terrasse` tinyint(1) NOT NULL,
+  `barbecue` tinyint(1) NOT NULL,
+  `piscine_privee` tinyint(1) NOT NULL,
+  `gite_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `equipement_exterieur`
+--
+
+INSERT INTO `equipement_exterieur` (`id`, `terrasse`, `barbecue`, `piscine_privee`, `gite_id`) VALUES
+(1, 0, 0, 0, 1),
+(2, 0, 0, 0, 2),
+(3, 0, 0, 0, 3),
+(4, 0, 0, 0, 4),
+(5, 0, 0, 0, 5),
+(6, 0, 0, 0, 6),
+(7, 0, 0, 0, 7),
+(8, 0, 0, 0, 8),
+(9, 0, 0, 0, 9),
+(10, 0, 0, 0, 10);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `equipement_interieur`
+--
+
+CREATE TABLE `equipement_interieur` (
+  `id` int(11) NOT NULL,
+  `lave_vaiselle` tinyint(1) NOT NULL,
+  `lave_linge` tinyint(1) NOT NULL,
+  `climatisation` tinyint(1) NOT NULL,
+  `television` tinyint(1) NOT NULL,
+  `gite_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `equipement_interieur`
+--
+
+INSERT INTO `equipement_interieur` (`id`, `lave_vaiselle`, `lave_linge`, `climatisation`, `television`, `gite_id`) VALUES
+(1, 0, 0, 0, 0, 1),
+(2, 0, 0, 0, 0, 2),
+(3, 0, 0, 0, 0, 3),
+(4, 0, 0, 0, 0, 4),
+(5, 0, 0, 0, 0, 5),
+(6, 0, 0, 0, 0, 6),
+(7, 0, 0, 0, 0, 7),
+(8, 0, 0, 0, 0, 8),
+(9, 0, 0, 0, 0, 9),
+(10, 0, 0, 0, 0, 10);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `gite`
+--
+
+CREATE TABLE `gite` (
+  `id` int(11) NOT NULL,
+  `proprietaire_id` int(11) NOT NULL,
+  `nom_gite` varchar(255) NOT NULL,
+  `surface_habitable` varchar(255) NOT NULL,
+  `nombre_chambres` int(11) NOT NULL,
+  `accueil_animaux` tinyint(1) NOT NULL,
+  `tarif_animaux` varchar(255) NOT NULL,
+  `tarif_location` varchar(255) NOT NULL,
+  `localisation_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `gite`
+--
+
+INSERT INTO `gite` (`id`, `proprietaire_id`, `nom_gite`, `surface_habitable`, `nombre_chambres`, `accueil_animaux`, `tarif_animaux`, `tarif_location`, `localisation_id`) VALUES
+(1, 1, 'Gite A', '100', 3, 0, '20', '500', 1),
+(2, 2, 'Gite B', '120', 4, 0, '', '550', 2),
+(3, 3, 'Gite C', '80', 2, 0, '15', '600', 3),
+(4, 4, 'Gite D', '150', 5, 0, '25', '650', 4),
+(5, 5, 'Gite E', '90', 2, 0, '', '700', 5),
+(6, 6, 'Gite F', '110', 3, 0, '18', '750', 6),
+(7, 7, 'Gite G', '130', 4, 0, '', '800', 7),
+(8, 8, 'Gite H', '95', 2, 0, '20', '850', 8),
+(9, 9, 'Gite I', '120', 3, 0, '', '900', 9),
+(10, 10, 'Gite J', '140', 4, 0, '22', '950', 10);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `localisation`
+--
+
+CREATE TABLE `localisation` (
+  `id` int(11) NOT NULL,
+  `region` varchar(255) NOT NULL,
+  `departement` varchar(20) NOT NULL,
+  `ville` varchar(255) NOT NULL,
+  `distance` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `localisation`
+--
+
+INSERT INTO `localisation` (`id`, `region`, `departement`, `ville`, `distance`) VALUES
+(1, 'Ile-de-France', 'Paris', 'Paris', '10'),
+(2, 'Provence-Alpes-Côte Azur', 'Bouches-du-Rhône', 'Marseille', '20'),
+(3, 'Auvergne-Rhône-Alpes', 'Rhône', 'Lyon', '15'),
+(4, 'Occitanie', 'Hérault', 'Montpellier', '30'),
+(5, 'Nouvelle-Aquitaine', 'Gironde', 'Bordeaux', '25'),
+(6, 'Hauts-de-France', 'Nord', 'Lille', '5'),
+(7, 'Grand Est', 'Bas-Rhin', 'Strasbourg', '22'),
+(8, 'Pays de la Loire', 'Loire-Atlantique', 'Nantes', '18'),
+(9, 'Bretagne', 'Ille-et-Vilaine', 'Rennes', '12'),
+(10, 'Normandie', 'Calvados', 'Caen', '8');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `messenger_messages`
+--
+
+CREATE TABLE `messenger_messages` (
+  `id` bigint(20) NOT NULL,
+  `body` longtext NOT NULL,
+  `headers` longtext NOT NULL,
+  `queue_name` varchar(190) NOT NULL,
+  `created_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
+  `available_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
+  `delivered_at` datetime DEFAULT NULL COMMENT '(DC2Type:datetime_immutable)'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `proprietaire`
+--
+
+CREATE TABLE `proprietaire` (
+  `id` int(11) NOT NULL,
+  `nom` varchar(255) DEFAULT NULL,
+  `code_postal` varchar(10) DEFAULT NULL,
+  `telephone` int(11) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `horaires_diponibilite` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `proprietaire`
+--
+
+INSERT INTO `proprietaire` (`id`, `nom`, `code_postal`, `telephone`, `email`, `horaires_diponibilite`) VALUES
+(1, 'John Doe', '12345', 1234567890, 'john.doe@example.com', 'Monday-Friday 9:00 AM - 5:00 PM'),
+(2, 'Jane Smith', '67890', 2147483647, 'jane.smith@example.com', 'Tuesday-Saturday 10:00 AM - 6:00 PM'),
+(3, 'Alice Johnson', '54321', 2147483647, 'alice.johnson@example.com', 'Monday-Sunday 8:00 AM - 8:00 PM'),
+(4, 'Bob Williams', '98765', 2147483647, 'bob.williams@example.com', 'Wednesday-Friday 11:00 AM - 4:00 PM'),
+(5, 'Eva Davis', '23456', 2147483647, 'eva.davis@example.com', 'Thursday-Saturday 1:00 PM - 7:00 PM'),
+(6, 'Michael Brown', '87654', 2147483647, 'michael.brown@example.com', 'Monday-Wednesday 10:00 AM - 3:00 PM'),
+(7, 'Sophie Taylor', '34567', 2147483647, 'sophie.taylor@example.com', 'Friday-Sunday 12:00 PM - 6:00 PM'),
+(8, 'David Miller', '76543', 2147483647, 'david.miller@example.com', 'Saturday-Sunday 2:00 PM - 5:00 PM'),
+(9, 'Emma Wilson', '45678', 2147483647, 'emma.wilson@example.com', 'Monday-Thursday 9:00 AM - 4:00 PM'),
+(10, 'James Smith', '12345', 1234567890, 'james.smith@example.com', 'Wednesday-Saturday 11:00 AM - 5:00 PM');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `service`
+--
+
+CREATE TABLE `service` (
+  `id` int(11) NOT NULL,
+  `location_linge` tinyint(1) NOT NULL,
+  `menage_fin_sejour` tinyint(1) NOT NULL,
+  `acces_internet` tinyint(1) NOT NULL,
+  `gite_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `service`
+--
+
+INSERT INTO `service` (`id`, `location_linge`, `menage_fin_sejour`, `acces_internet`, `gite_id`) VALUES
+(1, 0, 0, 0, NULL),
+(2, 0, 0, 0, NULL),
+(3, 0, 0, 0, NULL),
+(4, 0, 0, 0, NULL),
+(5, 0, 0, 0, NULL),
+(6, 0, 0, 0, NULL),
+(7, 0, 0, 0, NULL),
+(8, 0, 0, 0, NULL),
+(9, 0, 0, 0, NULL),
+(10, 0, 0, 0, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `tarif_location`
+--
+
+CREATE TABLE `tarif_location` (
+  `id` int(11) NOT NULL,
+  `date_debut` datetime NOT NULL,
+  `date_fin` datetime NOT NULL,
+  `tarifs` varchar(255) NOT NULL,
+  `gite_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Index pour les tables déchargées
+--
+
+--
+-- Index pour la table `doctrine_migration_versions`
+--
+ALTER TABLE `doctrine_migration_versions`
+  ADD PRIMARY KEY (`version`);
+
+--
+-- Index pour la table `equipement_exterieur`
+--
+ALTER TABLE `equipement_exterieur`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `IDX_94299A20652CAE9B` (`gite_id`);
+
+--
+-- Index pour la table `equipement_interieur`
+--
+ALTER TABLE `equipement_interieur`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `IDX_C8C95198652CAE9B` (`gite_id`);
+
+--
+-- Index pour la table `gite`
+--
+ALTER TABLE `gite`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `IDX_B638C92C76C50E4A` (`proprietaire_id`),
+  ADD KEY `IDX_B638C92CC68BE09C` (`localisation_id`);
+
+--
+-- Index pour la table `localisation`
+--
+ALTER TABLE `localisation`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `messenger_messages`
+--
+ALTER TABLE `messenger_messages`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `IDX_75EA56E0FB7336F0` (`queue_name`),
+  ADD KEY `IDX_75EA56E0E3BD61CE` (`available_at`),
+  ADD KEY `IDX_75EA56E016BA31DB` (`delivered_at`);
+
+--
+-- Index pour la table `proprietaire`
+--
+ALTER TABLE `proprietaire`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `service`
+--
+ALTER TABLE `service`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `IDX_E19D9AD2652CAE9B` (`gite_id`);
+
+--
+-- Index pour la table `tarif_location`
+--
+ALTER TABLE `tarif_location`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `IDX_585B5DA6652CAE9B` (`gite_id`);
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `equipement_exterieur`
+--
+ALTER TABLE `equipement_exterieur`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT pour la table `equipement_interieur`
+--
+ALTER TABLE `equipement_interieur`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT pour la table `gite`
+--
+ALTER TABLE `gite`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT pour la table `localisation`
+--
+ALTER TABLE `localisation`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT pour la table `messenger_messages`
+--
+ALTER TABLE `messenger_messages`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `proprietaire`
+--
+ALTER TABLE `proprietaire`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT pour la table `service`
+--
+ALTER TABLE `service`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT pour la table `tarif_location`
+--
+ALTER TABLE `tarif_location`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `equipement_exterieur`
+--
+ALTER TABLE `equipement_exterieur`
+  ADD CONSTRAINT `FK_94299A20652CAE9B` FOREIGN KEY (`gite_id`) REFERENCES `gite` (`id`);
+
+--
+-- Contraintes pour la table `equipement_interieur`
+--
+ALTER TABLE `equipement_interieur`
+  ADD CONSTRAINT `FK_C8C95198652CAE9B` FOREIGN KEY (`gite_id`) REFERENCES `gite` (`id`);
+
+--
+-- Contraintes pour la table `gite`
+--
+ALTER TABLE `gite`
+  ADD CONSTRAINT `FK_B638C92C76C50E4A` FOREIGN KEY (`proprietaire_id`) REFERENCES `proprietaire` (`id`),
+  ADD CONSTRAINT `FK_B638C92CC68BE09C` FOREIGN KEY (`localisation_id`) REFERENCES `localisation` (`id`);
+
+--
+-- Contraintes pour la table `service`
+--
+ALTER TABLE `service`
+  ADD CONSTRAINT `FK_E19D9AD2652CAE9B` FOREIGN KEY (`gite_id`) REFERENCES `gite` (`id`);
+
+--
+-- Contraintes pour la table `tarif_location`
+--
+ALTER TABLE `tarif_location`
+  ADD CONSTRAINT `FK_585B5DA6652CAE9B` FOREIGN KEY (`gite_id`) REFERENCES `gite` (`id`);
+COMMIT;

@@ -16,7 +16,6 @@ class HomeController extends AbstractController {
             'controller_name' => 'HomeController',
         ]);
     }
-
     #[Route('/proprietaire', name: 'home_proprietaire')]
     public function proprietaire(Request $request) {
         $proprietaire = new proprietaire();
@@ -26,7 +25,6 @@ class HomeController extends AbstractController {
         if($form->isSubmitted() && $form->isValid()) {
             // Traitez les données du formulaire ici
         }
-
         return $this->render("home/proprietaire.html.twig", [
             "form" => $form->createView()
         ]);
